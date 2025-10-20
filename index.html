@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop: Kế hoạch Triển khai Dự án Cải tiến Quản lý Tài sản</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .slide.active {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .progress-bar-fill {
+            transition: width 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    
+    <div class="w-full max-w-6xl aspect-[16/9] bg-white rounded-xl shadow-2xl flex flex-col overflow-hidden">
+        <!-- Main Slide Content Area -->
+        <div id="slide-container" class="flex-grow p-8 sm:p-12 flex flex-col justify-center relative">
+
+            <!-- Slide 1: Trang Bìa -->
+            <div class="slide flex-col items-center justify-center text-center">
+                <div class="bg-blue-600 text-white py-2 px-4 rounded-full text-sm font-semibold mb-6">KẾ HOẠCH TỔNG THỂ</div>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800">Cải tiến & Tự động hóa Quy trình Quản lý Tài sản (Non-Trade)</h1>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl">Một kế hoạch chi tiết từ Nền tảng, Vận hành đến Chuyển đổi, nhằm mục tiêu Kiểm soát, Tối ưu & Minh bạch hóa Dữ liệu.</p>
+            </div>
+
+            <!-- Slide 2: Agenda -->
+            <div class="slide flex-col">
+                <h2 class="text-3xl font-bold text-blue-600 mb-8">Nội dung Trình bày</h2>
+                <ol class="list-decimal list-inside text-xl text-gray-700 space-y-3">
+                    <li><span class="font-semibold">Bối cảnh:</span> Thách thức Hiện tại & Mâu thuẫn Cần giải quyết</li>
+                    <li><span class="font-semibold">Nền tảng:</span> Các Mô hình Giải pháp Cốt lõi</li>
+                    <li><span class="font-semibold">Thiết lập:</span> Cấu hình Hệ thống & Dữ liệu Gốc</li>
+                    <li><span class="font-semibold">Vận hành:</span> Luồng Quy trình Mới & <span class="text-blue-700">Ví dụ Thao tác</span></li>
+                    <li><span class="font-semibold">Chuyển đổi:</span> Kế hoạch Di dời Dữ liệu & Go-Live</li>
+                    <li><span class="font-semibold">Kết quả:</span> Tổng kết Lợi ích (ROI) & Bàn luận</li>
+                </ol>
+            </div>
+            
+            <!-- Slide 3: Thách thức -->
+             <div class="slide flex-col">
+                <h2 class="text-3xl font-bold text-blue-600 mb-8">1. Thách thức Hiện tại Cần Giải quyết</h2>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    <div class="bg-red-50 p-6 rounded-lg border border-red-200">
+                        <div class="text-4xl mb-3">⏱️</div>
+                        <h3 class="font-semibold text-lg text-red-800">"Lỗ hổng" Vận hành</h3>
+                        <p class="text-gray-600 mt-2 text-sm">10-30 ngày tài sản "vô chủ" trên hệ thống, gây rủi ro thất lạc.</p>
+                    </div>
+                    <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+                        <div class="text-4xl mb-3">🔗</div>
+                        <h3 class="font-semibold text-lg text-yellow-800">Quy trình Thủ công</h3>
+                        <p class="text-gray-600 mt-2 text-sm">FIN "bốc tách" hóa đơn, NTP chờ mã, AC dán tem "đuổi" -> lãng phí.</p>
+                    </div>
+                    <div class="bg-purple-50 p-6 rounded-lg border border-purple-200">
+                        <div class="text-4xl mb-3">🗑️</div>
+                        <h3 class="font-semibold text-lg text-purple-800">Dữ liệu Rác</h3>
+                        <p class="text-gray-600 mt-2 text-sm">Phải tạo SKU mới khi giá đổi -> không thể phân tích, thống kê.</p>
+                    </div>
+                    <div class="bg-indigo-50 p-6 rounded-lg border border-indigo-200">
+                        <div class="text-4xl mb-3">🔀</div>
+                        <h3 class="font-semibold text-lg text-indigo-800">Nhập nhằng Luồng</h3>
+                        <p class="text-gray-600 mt-2 text-sm">Quy trình Trade & Non-Trade chạy chung, có nguy cơ áp dụng nhầm lẫn.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Mô hình Giải pháp -->
+            <div class="slide flex-col">
+                <h2 class="text-3xl font-bold text-blue-600 mb-8">2. Bốn Mô hình Giải pháp Cốt lõi</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-semibold text-xl text-gray-800">1. Phân tách Luồng tại Gốc</h3>
+                        <p class="text-gray-600 mt-2">Dùng `Loại Item` (Trade/Non-Trade) làm "công tắc tổng" để hệ thống tự động áp dụng đúng quy trình.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-semibold text-xl text-gray-800">2. Mô hình "Tam giác Vàng"</h3>
+                        <p class="text-gray-600 mt-2">Tách biệt `Vendor` - `Item` - `PIR` để quản lý giá và NCC linh hoạt, xóa bỏ dữ liệu rác.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-semibold text-xl text-gray-800">3. Mô hình "Tài sản Cha - Con"</h3>
+                        <p class="text-gray-600 mt-2">Tách biệt Mã Tài chính (`FAM` - Cha) và Mã Vật lý (`Asset Code` - Con) để giải quyết vấn đề tài sản gộp.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-semibold text-xl text-gray-800">4. Nguyên tắc "Tag-on-Receipt"</h3>
+                        <p class="text-gray-600 mt-2">100% tài sản Non-Trade cần tag phải được dán tem ngay khi nhận hàng, xóa sổ "lỗ hổng" kiểm soát.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 5: Bundled Asset Conflict -->
+            <div class="slide flex-col">
+                <div class="mb-6 text-center">
+                    <h2 class="text-3xl font-bold text-blue-600">Giải quyết Mâu thuẫn "Tài sản Gộp" bằng Mô hình Cha-Con</h2>
+                </div>
+                <div class="flex-grow grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-red-50 border-2 border-dashed border-red-200 rounded-lg p-6 flex flex-col">
+                        <h3 class="text-xl font-bold text-red-800 mb-4">A. Xung đột Góc nhìn</h3>
+                        <p class="text-gray-700">Mua "Hệ thống Camera" **50 triệu VNĐ**.</p>
+                        <div class="grid grid-cols-2 gap-4 mt-4 flex-grow">
+                            <div class="bg-white p-4 rounded shadow flex flex-col">
+                                <h4 class="font-semibold text-blue-700">Kế toán (FIN)</h4>
+                                <ul class="list-disc list-inside text-sm mt-2 space-y-1 flex-grow"><li>Cần **1 Mã FAM**</li><li>Để khấu hao **50 triệu**.</li></ul>
+                            </div>
+                            <div class="bg-white p-4 rounded shadow flex flex-col">
+                                <h4 class="font-semibold text-green-700">Vật lý (AC/NTP)</h4>
+                                <ul class="list-disc list-inside text-sm mt-2 space-y-1 flex-grow"><li>Cần **4 Mã Asset Code**</li><li>Để dán tem (2 Camera, 1 DVR, 1 UPS).</li></ul>
+                            </div>
+                        </div>
+                        <div class="text-center bg-red-100 p-3 rounded-lg mt-4"><p class="font-bold text-red-900">=> Mâu thuẫn: 1 Mã Tài chính vs. 4 Mã Vật lý?</p></div>
+                    </div>
+                    <div class="bg-green-50 border-2 border-dashed border-green-200 rounded-lg p-6 flex flex-col">
+                        <h3 class="text-xl font-bold text-green-800 mb-4">B. Giải pháp & Kết quả</h3>
+                        <p class="text-gray-700 mb-4">Hệ thống liên kết **1 "Cha" (Tài chính)** với **Nhiều "Con" (Vật lý)**.</p>
+                        <div class="bg-white p-4 rounded-lg shadow-inner space-y-2 flex-grow">
+                             <div><p class="font-semibold text-green-700">Khi AC quét tem (Con): <code class="bg-gray-200 p-1 rounded">CAM-001</code></p></div><hr>
+                             <div><p class="font-semibold text-blue-700">Hệ thống tham chiếu (Cha):</p><p class="text-sm text-gray-600">Thuộc Mã FAM: `FAM-SEC-001`, Trạng thái: Đang khấu hao</p></div>
+                        </div>
+                        <p class="mt-3 text-center font-semibold text-green-900">=> Cung cấp cái nhìn 360 độ về tài sản.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 6: Thiết lập Hệ thống -->
+            <div class="slide flex-col">
+                <h2 class="text-3xl font-bold text-blue-600 mb-8">3. Giai đoạn 1 - Thiết lập Nền tảng Hệ thống</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-800">A. Cấu hình Dữ liệu Gốc (Master Data)</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Thêm "công tắc tổng" **`Loại Item`** (Trade/Non-Trade).</li>
+                            <li>Với item Non-Trade, cấu hình 3 "bộ não":
+                                <ul class="list-decimal list-inside ml-6 mt-1 text-sm">
+                                    <li>**`Lớp Kế toán`** (Key cho FIN hạch toán).</li>
+                                    <li>**`Chính sách Tagging`** (Key cho NTP dán tem).</li>
+                                    <li>**`Luồng Mua hàng`** (Key cho NTP tạo PO).</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-800">B. Cấu hình Logic & Giao diện</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Xây dựng logic tự động tạo/cập nhật **PIR** từ PO.</li>
+                            <li>Xây dựng module **BOM Template** cho luồng AS-PLAN.</li>
+                            <li>Xây dựng **"Màn hình Vốn hóa Tài sản"** cho FIN.</li>
+                            <li>Xây dựng **Báo cáo Lịch sử Giá** từ dữ liệu PO.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 7: Luồng NTP -->
+            <div class="slide flex-col">
+                 <h2 class="text-3xl font-bold text-blue-600 mb-8">4. Vận hành - Luồng của NTP (Mua hàng & Nhận hàng)</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Tác vụ: Tạo PO (Chỉ Non-Trade)</h3>
+                         <p class="mb-2">Giao diện của NTP sẽ được thiết lập cho luồng Non-Trade.</p>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                             <li>**Mua lẻ (`REQUEST`):**
+                                <ul class="list-decimal list-inside ml-6 mt-1 text-sm">
+                                    <li>Hệ thống tự gợi ý giá (từ PIR).</li>
+                                    <li>Hệ thống tự sinh `Asset Code` (Con).</li>
+                                </ul>
+                             </li>
+                             <li>**Mua theo plan (`AS-PLAN`):**
+                                 <ul class="list-decimal list-inside ml-6 mt-1 text-sm">
+                                    <li>Chọn BOM Template (theo size cửa hàng).</li>
+                                    <li>Hệ thống tự tạo PO hàng loạt.</li>
+                                </ul>
+                            </li>
+                         </ul>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Tác vụ: Nhận hàng (GRN)</h3>
+                        <p class="mb-2">Hệ thống sẽ chỉ dẫn hành động cần làm cho NTP.</p>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Hệ thống hiển thị `Asset Code` (Con) tương ứng với từng item.</li>
+                            <li>NTP có trách nhiệm **in tem và dán tem (Tag-on-Receipt)** trước khi xác nhận nhập kho.</li>
+                        </ul>
+                    </div>
+                 </div>
+            </div>
+            
+            <!-- SLIDE 8: NTP BOM Example -->
+            <div class="slide flex-col">
+                <h2 class="text-3xl font-bold text-blue-600 mb-6">Ví dụ Thao tác: NTP Đặt hàng Loạt cho Cửa hàng Mới (AS-PLAN)</h2>
+                <p class="text-gray-600 mb-6 text-center max-w-4xl mx-auto">NTP không cần tạo PO thủ công. Họ chỉ cần chọn đúng định mức (BOM) cho cửa hàng cần mở, hệ thống sẽ tự động tạo các đơn hàng.</p>
+                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 shadow-lg w-full">
+                    <h3 class="font-bold text-lg text-gray-800 mb-4">Giao diện Tạo PO từ Định mức (BOM Template)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+                        <div>
+                            <label class="font-semibold text-gray-600 text-sm">1. Chọn loại Cửa hàng / Dự án</label>
+                            <select class="w-full p-2 border border-gray-300 rounded mt-1 bg-white">
+                                <option>Cửa hàng Size A - Khai trương T12/2025</option>
+                                <option>Cửa hàng Size B - Khai trương T12/2025</option>
+                                <option>Văn phòng Mở rộng - Tầng 5</option>
+                            </select>
+                        </div>
+                        <button class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors h-10">Tạo & Xem trước các PO</button>
+                    </div>
+                    <div class="mt-6 bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <h4 class="font-bold text-blue-800">Hệ thống tự động tạo danh sách yêu cầu:</h4>
+                        <p class="text-sm text-gray-600 mt-2">Dựa trên định mức, hệ thống sẽ tự động tạo các PO cần thiết đến các nhà cung cấp đã được gán sẵn:</p>
+                        <ul class="text-sm text-gray-700 list-disc list-inside mt-2">
+                           <li>Hệ thống Quầy kệ (50 bộ) -> PO đến NCC Nội thất ABC</li>
+                           <li>Hệ thống Camera (1 bộ) -> PO đến NCC An ninh XYZ</li>
+                           <li>Laptop & Máy in (15 cái) -> PO đến NCC Phong Vũ</li>
+                           <li>... và các hạng mục khác.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 9: FIN Grouping Example -->
+            <div class="slide flex-col">
+                <h2 class="text-3xl font-bold text-blue-600 mb-6">Ví dụ Thao tác: FIN Nhóm Tài sản Gộp (1 Cha - Nhiều Con)</h2>
+                <p class="text-gray-600 mb-6 text-center max-w-4xl mx-auto">Trên "Màn hình Vốn hóa", Kế toán sẽ thấy tất cả các item đã nhập kho. Để xử lý "Hệ thống Camera", họ sẽ thực hiện các bước sau:</p>
+                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 shadow-lg w-full">
+                    <h3 class="font-bold text-lg text-gray-800 mb-4">Màn hình Đối soát & Vốn hóa Tài sản</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="p-3"><input type="checkbox" disabled></th>
+                                    <th class="p-3 font-semibold text-gray-600">Tên Item</th>
+                                    <th class="p-3 font-semibold text-gray-600">Số lượng</th>
+                                    <th class="p-3 font-semibold text-gray-600">Thành tiền</th>
+                                    <th class="p-3 font-semibold text-gray-600">Asset Code (Con)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-200 bg-green-50">
+                                    <td class="p-3"><input type="checkbox" checked></td>
+                                    <td class="p-3">Camera IP HIK-XYZ</td>
+                                    <td class="p-3">2</td>
+                                    <td class="p-3">10.000.000</td>
+                                    <td class="p-3"><code class="text-xs bg-gray-200 p-1 rounded">CAM-001, CAM-002</code></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 bg-green-50">
+                                    <td class="p-3"><input type="checkbox" checked></td>
+                                    <td class="p-3">Đầu ghi hình DVR-01</td>
+                                    <td class="p-3">1</td>
+                                    <td class="p-3">5.000.000</td>
+                                    <td class="p-3"><code class="text-xs bg-gray-200 p-1 rounded">DVR-001</code></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 bg-green-50">
+                                    <td class="p-3"><input type="checkbox" checked></td>
+                                    <td class="p-3">Bộ lưu điện UPS-ABC</td>
+                                    <td class="p-3">1</td>
+                                    <td class="p-3">3.000.000</td>
+                                    <td class="p-3"><code class="text-xs bg-gray-200 p-1 rounded">UPS-001</code></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 bg-green-50">
+                                    <td class="p-3"><input type="checkbox" checked></td>
+                                    <td class="p-3">Chi phí Lắp đặt Hệ thống Camera</td>
+                                    <td class="p-3">1</td>
+                                    <td class="p-3">32.000.000</td>
+                                    <td class="p-3 text-gray-400">N/A</td>
+                                </tr>
+                                <tr class="border-b border-gray-200">
+                                    <td class="p-3"><input type="checkbox" disabled></td>
+                                    <td class="p-3">Laptop Dell XPS 15</td>
+                                    <td class="p-3">1</td>
+                                    <td class="p-3">25.000.000</td>
+                                    <td class="p-3"><code class="text-xs bg-gray-200 p-1 rounded">LAP-015</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-6 flex justify-between items-center">
+                        <p class="text-gray-600">Đã chọn 4 item. Tổng giá trị: <span class="font-bold text-black">50.000.000 VNĐ</span></p>
+                        <button class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors">Tạo Tài sản Gộp</button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">Hệ thống sẽ tạo 1 Mã FAM (Cha) duy nhất và liên kết 4 Asset Code (Con) vào đó.</p>
+                </div>
+            </div>
+
+             <!-- SLIDE 10: NTP PO Example -->
+            <div class="slide flex-col">
+                <h2 class="text-3xl font-bold text-blue-600 mb-6">Ví dụ Thao tác: NTP Tạo PO Mua lẻ (Non-Trade)</h2>
+                <p class="text-gray-600 mb-6 text-center max-w-4xl mx-auto">Khi NTP chọn một item Non-Trade, hệ thống sẽ tự động điền các thông tin đã được cấu hình sẵn và sinh mã Asset Code tương ứng.</p>
+                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 shadow-lg w-full">
+                    <h3 class="font-bold text-lg text-gray-800 mb-4">Giao diện Tạo Purchase Order - Chi tiết Item</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="font-semibold text-gray-600 text-sm">Tên Item</label>
+                            <input type="text" value="Laptop Dell XPS 15" class="w-full p-2 border border-gray-300 rounded mt-1 bg-white" disabled>
+                        </div>
+                        <div>
+                            <label class="font-semibold text-gray-600 text-sm">Lớp Kế toán</label>
+                            <input type="text" value="FA-IT (TSCD - Thiết bị IT)" class="w-full p-2 border border-gray-300 rounded mt-1 bg-gray-200 cursor-not-allowed" disabled>
+                        </div>
+                        <div>
+                            <label class="font-semibold text-gray-600 text-sm">Chính sách Tagging</label>
+                            <input type="text" value="TAG-MANDATORY (Bắt buộc tag)" class="w-full p-2 border border-gray-300 rounded mt-1 bg-gray-200 cursor-not-allowed" disabled>
+                        </div>
+                        <div>
+                            <label class="font-semibold text-gray-600 text-sm">Nhà cung cấp</label>
+                            <input type="text" value="Phong Vũ" class="w-full p-2 border border-gray-300 rounded mt-1 bg-white">
+                        </div>
+                        <div>
+                            <label class="font-semibold text-gray-600 text-sm">Số lượng</label>
+                            <input type="number" value="5" class="w-full p-2 border border-blue-500 rounded mt-1 bg-white font-bold">
+                        </div>
+                        <div>
+                            <label class="font-semibold text-gray-600 text-sm">Đơn giá</label>
+                            <input type="text" value="25.000.000" class="w-full p-2 border border-gray-300 rounded mt-1 bg-white">
+                        </div>
+                    </div>
+                    <div class="mt-6 bg-green-50 p-4 rounded-lg border border-green-200">
+                        <h4 class="font-bold text-green-800">Hệ thống đã tự động sinh mã:</h4>
+                        <p class="text-sm text-gray-600 mt-2">5 mã Asset Code (Con) đã được giữ chỗ cho PO này: <br>
+                        <code class="text-xs bg-gray-200 p-1 rounded">LAP-015, LAP-016, LAP-017, LAP-018, LAP-019</code>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Slide 11: Luồng FIN & AC -->
+             <div class="slide flex-col">
+                 <h2 class="text-3xl font-bold text-blue-600 mb-8">4. Vận hành - Luồng của FIN (Kế toán) & AC (Kiểm soát)</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                        <h3 class="text-xl font-semibold text-blue-800 mb-4">Luồng của Kế toán (FIN)</h3>
+                        <p class="mb-2">FIN làm việc trên **"Màn hình Vốn hóa"** và chỉ xử lý các item Non-Trade.</p>
+                        <p class="text-gray-700">Vai trò mới: **Đối soát, Ra quyết định Nhóm & Phê duyệt** bút toán do hệ thống tự động đề xuất dựa trên `Lớp Kế toán`.</p>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1 mt-2 text-sm">
+                           <li>**Case 1 (1 Cha - 1 Con):** Nhấn "Vốn hóa Tự động".</li>
+                           <li>**Case 2 (1 Cha - Nhiều Con):** Nhấn "Tạo Tài sản Gộp".</li>
+                           <li>**Case 3 (1 Cha - 0 Con):** Nhấn "Vốn hóa Đơn".</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                        <h3 class="text-xl font-semibold text-green-800 mb-4">Luồng của Kiểm soát TS (AC)</h3>
+                        <p class="text-gray-600 line-through mb-2">Vai trò cũ: Đi dán tem "đuổi".</p>
+                        <p class="text-gray-700 font-semibold">Vai trò mới:</p>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2 mt-2">
+                            <li>**Hậu kiểm & Kiểm kê:** Dùng máy quét `Asset Code` (Con) để kiểm tra định kỳ.</li>
+                            <li>**Quản lý Vòng đời:** Xử lý điều chuyển, thanh lý, báo hỏng trên hệ thống.</li>
+                        </ul>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- SLIDE 12: FIN Capitalization Example -->
+             <div class="slide flex-col">
+                <h2 class="text-3xl font-bold text-blue-600 mb-6">Ví dụ Thao tác: FIN Vốn hóa Tài sản Đơn lẻ (1 Cha - 1 Con)</h2>
+                <p class="text-gray-600 mb-6 text-center max-w-4xl mx-auto">Để xử lý 10 cái laptop đã nhập kho, FIN chỉ cần Lọc theo Lớp Kế toán, Chọn tất cả và nhấn nút Vốn hóa Tự động.</p>
+                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 shadow-lg w-full">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-lg text-gray-800">Màn hình Đối soát & Vốn hóa Tài sản</h3>
+                        <div class="flex items-center space-x-2">
+                             <label class="font-semibold text-gray-600 text-sm">Lọc theo Lớp Kế toán:</label>
+                             <select class="p-2 border border-gray-300 rounded bg-white"><option>FA-IT (TSCD - Thiết bị IT)</option></select>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="p-3"><input type="checkbox" checked></th>
+                                    <th class="p-3 font-semibold text-gray-600">Tên Item</th>
+                                    <th class="p-3 font-semibold text-gray-600">PO No.</th>
+                                    <th class="p-3 font-semibold text-gray-600">Giá trị</th>
+                                    <th class="p-3 font-semibold text-gray-600">Asset Code (Con)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-200 bg-blue-50">
+                                    <td class="p-3"><input type="checkbox" checked></td>
+                                    <td class="p-3">Laptop Dell XPS 15</td>
+                                    <td class="p-3">PO-1001</td>
+                                    <td class="p-3">25.000.000</td>
+                                    <td class="p-3"><code class="text-xs bg-gray-200 p-1 rounded">LAP-015</code></td>
+                                </tr>
+                                 <tr class="border-b border-gray-200 bg-blue-50">
+                                    <td class="p-3"><input type="checkbox" checked></td>
+                                    <td class="p-3">Laptop Dell XPS 15</td>
+                                    <td class="p-3">PO-1001</td>
+                                    <td class="p-3">25.000.000</td>
+                                    <td class="p-3"><code class="text-xs bg-gray-200 p-1 rounded">LAP-016</code></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 bg-blue-50">
+                                    <td class="p-3"><input type="checkbox" checked></td>
+                                    <td class="p-3">... (8 laptops khác)</td>
+                                    <td class="p-3">...</td>
+                                    <td class="p-3">...</td>
+                                    <td class="p-3">...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-6 flex justify-between items-center">
+                        <p class="text-gray-600">Đã chọn 10 item. Tổng giá trị: <span class="font-bold text-black">250.000.000 VNĐ</span></p>
+                        <button class="bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow hover:bg-green-700 transition-colors">Vốn hóa Tự động (1-1)</button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">Hệ thống sẽ tự động tạo 10 Mã FAM (Cha) riêng biệt và liên kết tương ứng với 10 Asset Code (Con).</p>
+                </div>
+            </div>
+            
+             <!-- Slide 13: Data Migration -->
+            <div class="slide flex-col">
+                <h2 class="text-3xl font-bold text-blue-600 mb-8">5. Giai đoạn 2 - Kế hoạch Chuyển đổi Dữ liệu</h2>
+                <div class="flex items-center justify-between space-x-2 text-center text-sm font-semibold text-gray-700">
+                    <div class="p-4 bg-gray-100 rounded-lg flex-1">1. Chốt Cấu trúc & Đóng băng</div>
+                    <div class="text-2xl text-gray-300">→</div>
+                    <div class="p-4 bg-gray-100 rounded-lg flex-1">2. Trích xuất & Làm sạch</div>
+                    <div class="text-2xl text-gray-300">→</div>
+                    <div class="p-4 bg-yellow-100 border border-yellow-300 rounded-lg flex-1">3. "Làm giàu" Dữ liệu <br>(Enrichment)</div>
+                    <div class="text-2xl text-gray-300">→</div>
+                    <div class="p-4 bg-gray-100 rounded-lg flex-1">4. Tải dữ liệu & Kiểm thử</div>
+                </div>
+                <div class="mt-8 bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+                    <h3 class="font-bold text-xl text-yellow-800">Bước "Làm giàu" Dữ liệu - Quan trọng nhất</h3>
+                    <p class="text-gray-600 mt-2">Đội ngũ dự án sẽ làm việc trên file Excel đã được làm sạch để điền thông tin vào các cột mới.</p>
+                     <ul class="list-decimal list-inside text-gray-700 space-y-1 mt-2">
+                        <li>**Ưu tiên 1:** Điền cột **`Loại Item`** (Trade/Non-Trade) cho 100% item.</li>
+                        <li>**Ưu tiên 2:** *Chỉ với các item `NON-TRADE`*, điền 3 cột còn lại: `Lớp Kế toán`, `Luồng Mua hàng`, `Chính sách Tagging`.</li>
+                    </ul>
+                </div>
+            </div>
+
+             <!-- Slide 14: Cutover -->
+             <div class="slide flex-col">
+                <h2 class="text-3xl font-bold text-blue-600 mb-8">5. Các Vấn đề Cần làm & Lưu ý khi Go-Live</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+                        <h3 class="text-xl font-semibold text-yellow-800 mb-4">Xử lý Giao dịch Dở dang</h3>
+                        <p class="font-semibold text-gray-800">Việc cần làm:</p>
+                        <ul class="list-disc list-inside text-gray-700 text-sm mt-2">
+                            <li>Chốt danh sách các PO đã tạo trên hệ thống cũ nhưng chưa hoàn tất.</li>
+                        </ul>
+                        <p class="font-semibold text-gray-800 mt-4">Lưu ý quan trọng:</p>
+                         <p class="text-gray-700 text-sm mt-2">Các PO này sẽ tiếp tục xử lý theo **quy trình cũ**. Không di chuyển giao dịch dở dang sang hệ thống mới để tránh rủi ro.</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                        <h3 class="text-xl font-semibold text-blue-800 mb-4">Kế hoạch Chuyển đổi (Cutover)</h3>
+                        <p class="font-semibold text-gray-800">Việc cần làm:</p>
+                        <ul class="list-disc list-inside text-gray-700 text-sm mt-2 space-y-1">
+                           <li>"Đóng băng" hệ thống cũ (khóa tạo PO mới).</li>
+                           <li>Đồng bộ dữ liệu lần cuối.</li>
+                           <li>Kích hoạt hệ thống mới cho người dùng.</li>
+                        </ul>
+                        <p class="font-semibold text-gray-800 mt-4">Lưu ý quan trọng:</p>
+                        <p class="text-gray-700 text-sm mt-2">Phải có kế hoạch **truyền thông rõ ràng** đến tất cả các bộ phận về lịch trình và các thay đổi.</p>
+                    </div>
+                     <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                        <h3 class="text-xl font-semibold text-green-800 mb-4">Hỗ trợ sau Go-Live (Hypercare)</h3>
+                        <p class="font-semibold text-gray-800">Việc cần làm:</p>
+                        <ul class="list-disc list-inside text-gray-700 text-sm mt-2 space-y-1">
+                           <li>Thành lập đội hỗ trợ chuyên trách (IT, FIN, NTP).</li>
+                           <li>Xây dựng kênh liên lạc "nóng" (hotline, group chat).</li>
+                           <li>Theo dõi chặt chẽ hệ thống và phản hồi người dùng.</li>
+                        </ul>
+                        <p class="font-semibold text-gray-800 mt-4">Lưu ý quan trọng:</p>
+                        <p class="text-gray-700 text-sm mt-2">Đây là giai đoạn then chốt để **xây dựng lòng tin** và đảm bảo sự thành công của dự án.</p>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- Slide 15: ROI -->
+            <div class="slide flex-col">
+                 <h2 class="text-3xl font-bold text-blue-600 mb-8">6. Tổng kết Lợi ích Thu được (ROI)</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                        <div class="text-4xl mb-3">💼</div>
+                        <h3 class="font-semibold text-lg text-green-800">Giảm Workload</h3>
+                        <p class="text-gray-600 mt-2 text-sm">Giải phóng hàng trăm giờ công mỗi tháng cho FIN, NTP, IT khỏi các tác vụ thủ công, lặp lại.</p>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                        <div class="text-4xl mb-3">📉</div>
+                        <h3 class="font-semibold text-lg text-green-800">Giảm Sai sót</h3>
+                        <p class="text-gray-600 mt-2 text-sm">Giảm >90% sai sót về giá và hạch toán, giảm rủi ro thất thoát tài chính.</p>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                        <div class="text-4xl mb-3">📊</div>
+                        <h3 class="font-semibold text-lg text-green-800">Dữ liệu Sạch & Tin cậy</h3>
+                        <p class="text-gray-600 mt-2 text-sm">Nền tảng để xây dựng Dashboard Phân tích NCC, Báo cáo Lịch sử Giá, hỗ trợ đàm phán chiến lược.</p>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                        <div class="text-4xl mb-3">🔍</div>
+                        <h3 class="font-semibold text-lg text-green-800">Minh bạch & Kiểm soát</h3>
+                        <p class="text-gray-600 mt-2 text-sm">Xóa sổ rủi ro thất lạc tài sản trong "lỗ hổng" 10-30 ngày.</p>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- Slide 16: Q&A -->
+            <div class="slide flex-col items-center justify-center text-center">
+                <h1 class="text-5xl font-extrabold text-blue-600">Hỏi & Đáp</h1>
+                <p class="mt-4 text-2xl text-gray-700">Thảo luận, Góp ý & Các bước Tiếp theo</p>
+                <p class="mt-8 text-gray-500">Xin cảm ơn!</p>
+            </div>
+        </div>
+
+        <!-- Footer with Navigation and Progress Bar -->
+        <div class="bg-gray-50 p-4 border-t border-gray-200">
+            <div class="flex items-center justify-between">
+                <button id="prevBtn" class="bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <div class="flex-grow mx-4">
+                     <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div id="progressBar" class="bg-blue-600 h-2.5 rounded-full progress-bar-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="text-sm font-medium text-gray-600 w-20 text-center">
+                    Slide <span id="currentSlideNum">1</span> / <span id="totalSlidesNum">16</span>
+                </div>
+                <button id="nextBtn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const currentSlideNum = document.getElementById('currentSlideNum');
+        const totalSlidesNum = document.getElementById('totalSlidesNum');
+        const progressBar = document.getElementById('progressBar');
+
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+
+        totalSlidesNum.textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            currentSlideNum.textContent = index + 1;
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === totalSlides - 1;
+
+            const progressPercentage = ((index + 1) / totalSlides) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+        
+        // Initial setup
+        const initialSlideIndex = 0; // Start at slide 1
+        if (initialSlideIndex < totalSlides && initialSlideIndex >= 0) {
+            currentSlide = initialSlideIndex;
+        }
+        showSlide(currentSlide);
+    });
+</script>
+
+</body>
+</html>
+
